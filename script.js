@@ -465,3 +465,225 @@ const debouncedResize = debounce(function() {
 }, 250);
 
 window.addEventListener('resize', debouncedResize);
+
+// 新增功能：主题切换
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-theme');
+    
+    // 保存主题偏好
+    const isDark = body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // 更新所有图表以适应新主题
+    setTimeout(() => {
+        Plotly.Plots.resize('book-chart');
+        Plotly.Plots.resize('exchange-chart');
+        Plotly.Plots.resize('sales-chart');
+        Plotly.Plots.resize('temperature-chart');
+        Plotly.Plots.resize('snowflake-chart');
+    }, 100);
+}
+
+// 新增功能：数据导出
+function exportData() {
+    const dataToExport = {
+        timestamp: new Date().toISOString(),
+        charts: currentChartStates,
+        version: '1.0'
+    };
+    
+    const dataStr = JSON.stringify(dataToExport, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `data-visualization-export-${new Date().getTime()}.json`;
+    link.click();
+    
+    alert('数据已成功导出！');
+}
+
+// 新增功能：显示帮助
+function showHelp() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'flex';
+}
+
+// 新增功能：关闭帮助
+function closeHelp() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'none';
+}
+
+// 点击模态框外部关闭
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('helpModal');
+    if (event.target === modal) {
+        closeHelp();
+    }
+});
+
+// 加载保存的主题偏好
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+    }
+    
+    // 添加键盘快捷键支持
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+H 显示帮助
+        if (e.ctrlKey && e.key === 'h') {
+            e.preventDefault();
+            showHelp();
+        }
+        // Ctrl+D 切换主题
+        if (e.ctrlKey && e.key === 'd') {
+            e.preventDefault();
+            toggleTheme();
+        }
+        // Escape 关闭帮助
+        if (e.key === 'Escape') {
+            closeHelp();
+        }
+    });
+});
+
+// 性能监控
+if (typeof PerformanceObserver !== 'undefined') {
+    const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+            if (entry.entryType === 'measure' && entry.duration > 100) {
+                console.warn(`性能警告: ${entry.name} 耗时 ${entry.duration.toFixed(2)}ms`);
+            }
+        });
+    });
+    observer.observe({entryTypes: ['measure']});
+}
+
+// 错误处理
+window.addEventListener('error', function(e) {
+    console.error('应用程序错误:', e.error);
+    // 可以在这里添加错误报告功能
+});
+
+// 离线支持
+window.addEventListener('online', function() {
+    console.log('网络连接已恢复');
+});
+
+window.addEventListener('offline', function() {
+    console.warn('网络连接已断开，部分功能可能受限');
+});
+
+// 新增功能：主题切换
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-theme');
+    
+    // 保存主题偏好
+    const isDark = body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // 更新所有图表以适应新主题
+    setTimeout(() => {
+        Plotly.Plots.resize('book-chart');
+        Plotly.Plots.resize('exchange-chart');
+        Plotly.Plots.resize('sales-chart');
+        Plotly.Plots.resize('temperature-chart');
+        Plotly.Plots.resize('snowflake-chart');
+    }, 100);
+}
+
+// 新增功能：数据导出
+function exportData() {
+    const dataToExport = {
+        timestamp: new Date().toISOString(),
+        charts: currentChartStates,
+        version: '1.0'
+    };
+    
+    const dataStr = JSON.stringify(dataToExport, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `data-visualization-export-${new Date().getTime()}.json`;
+    link.click();
+    
+    alert('数据已成功导出！');
+}
+
+// 新增功能：显示帮助
+function showHelp() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'flex';
+}
+
+// 新增功能：关闭帮助
+function closeHelp() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'none';
+}
+
+// 点击模态框外部关闭
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('helpModal');
+    if (event.target === modal) {
+        closeHelp();
+    }
+});
+
+// 加载保存的主题偏好
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+    }
+    
+    // 添加键盘快捷键支持
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+H 显示帮助
+        if (e.ctrlKey && e.key === 'h') {
+            e.preventDefault();
+            showHelp();
+        }
+        // Ctrl+D 切换主题
+        if (e.ctrlKey && e.key === 'd') {
+            e.preventDefault();
+            toggleTheme();
+        }
+        // Escape 关闭帮助
+        if (e.key === 'Escape') {
+            closeHelp();
+        }
+    });
+});
+
+// 性能监控
+if (typeof PerformanceObserver !== 'undefined') {
+    const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+            if (entry.entryType === 'measure' && entry.duration > 100) {
+                console.warn(`性能警告: ${entry.name} 耗时 ${entry.duration.toFixed(2)}ms`);
+            }
+        });
+    });
+    observer.observe({entryTypes: ['measure']});
+}
+
+// 错误处理
+window.addEventListener('error', function(e) {
+    console.error('应用程序错误:', e.error);
+    // 可以在这里添加错误报告功能
+});
+
+// 离线支持
+window.addEventListener('online', function() {
+    console.log('网络连接已恢复');
+});
+
+window.addEventListener('offline', function() {
+    console.warn('网络连接已断开，部分功能可能受限');
+});

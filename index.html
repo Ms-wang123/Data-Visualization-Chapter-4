@@ -231,6 +231,97 @@
         .play-btn:hover {
             background: #218838;
         }
+
+        .feature-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            min-width: 120px;
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+        }
+
+        .dark-theme .chart-card {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .dark-theme .chart-title {
+            color: #ecf0f1;
+        }
+
+        .dark-theme .chart-description {
+            color: #bdc3c7;
+        }
+
+        .dark-theme .data-input {
+            background: #34495e;
+        }
+
+        .dark-theme .responsive-info {
+            background: rgba(44, 62, 80, 0.9);
+        }
+
+        .help-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .help-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .dark-theme .help-content {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -350,6 +441,101 @@
             <h3>📱 响应式设计特性</h3>
             <p>此页面采用响应式设计，可在各种设备上完美显示</p>
             <p>• 移动设备优化布局 • 触摸友好的交互控件 • 自适应图表尺寸</p>
+            <div class="feature-buttons">
+                <button class="feature-btn" onclick="exportData()">📊 导出数据</button>
+                <button class="feature-btn" onclick="toggleTheme()">🌙 切换主题</button>
+                <button class="feature-btn" onclick="showHelp()">❓ 使用帮助</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 帮助模态框 -->
+    <div class="help-modal" id="helpModal">
+        <div class="help-content">
+            <button class="close-btn" onclick="closeHelp()">×</button>
+            <h2>📖 使用帮助</h2>
+            <div class="help-section">
+                <h3>🎯 基本操作</h3>
+                <p><strong>图表交互：</strong></p>
+                <ul>
+                    <li>悬停查看数据详情</li>
+                    <li>点击拖拽平移图表</li>
+                    <li>滚轮缩放图表</li>
+                    <li>双击重置视图</li>
+                </ul>
+                
+                <p><strong>控制面板：</strong></p>
+                <ul>
+                    <li>点击按钮切换不同视图</li>
+                    <li>使用滑块调整参数</li>
+                    <li>选择颜色自定义主题</li>
+                    <li>输入数据实时更新</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h3>📱 移动优化</h3>
+                <ul>
+                    <li>触摸手势支持：滑动、缩放</li>
+                    <li>大尺寸触摸按钮</li>
+                    <li>自适应布局</li>
+                    <li>性能优化</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h3>🎨 主题功能</h3>
+                <ul>
+                    <li>点击"切换主题"按钮切换明暗模式</li>
+                    <li>使用"导出数据"功能保存图表数据</li>
+                    <li>所有设置自动保存</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 帮助模态框 -->
+    <div class="help-modal" id="helpModal">
+        <div class="help-content">
+            <button class="close-btn" onclick="closeHelp()">×</button>
+            <h2>📖 使用帮助</h2>
+            <div class="help-section">
+                <h3>🎯 基本操作</h3>
+                <p><strong>图表交互：</strong></p>
+                <ul>
+                    <li>悬停查看数据详情</li>
+                    <li>点击拖拽平移图表</li>
+                    <li>滚轮缩放图表</li>
+                    <li>双击重置视图</li>
+                </ul>
+                
+                <p><strong>控制面板：</strong></p>
+                <ul>
+                    <li>点击按钮切换不同视图</li>
+                    <li>使用滑块调整参数</li>
+                    <li>选择颜色自定义主题</li>
+                    <li>输入数据实时更新</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h3>📱 移动优化</h3>
+                <ul>
+                    <li>触摸手势支持：滑动、缩放</li>
+                    <li>大尺寸触摸按钮</li>
+                    <li>自适应布局</li>
+                    <li>性能优化</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h3>🎨 主题功能</h3>
+                <ul>
+                    <li>点击"切换主题"按钮切换明暗模式</li>
+                    <li>使用"导出数据"功能保存图表数据</li>
+                    <li>所有设置自动保存</li>
+                </ul>
+            </div>
         </div>
     </div>
 
